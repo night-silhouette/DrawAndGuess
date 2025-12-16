@@ -1,0 +1,160 @@
+[gd_scene load_steps=19 format=3 uid="uid://jvkne22ala20"]
+
+[ext_resource type="Script" uid="uid://m4qosr7oi7t1" path="res://scene/game/game.gd" id="1_pw1yp"]
+[ext_resource type="Texture2D" uid="uid://dcxje3gqujkbl" path="res://asset/删除.png" id="3_0tn4t"]
+[ext_resource type="Script" uid="uid://cugp3smrg3x8h" path="res://scene/画板/画板.gd" id="3_v4hye"]
+[ext_resource type="Texture2D" uid="uid://bmcsa76i38mr6" path="res://asset/撤回.png" id="4_5nn1g"]
+[ext_resource type="Script" uid="uid://bfl04i3uq06jm" path="res://scene/game/功能区.gd" id="4_7d2hf"]
+[ext_resource type="Script" uid="uid://doi65fjp57h8r" path="res://scene/画板/canvas.gd" id="4_yv2ml"]
+[ext_resource type="Texture2D" uid="uid://2rs6jwx0v7hg" path="res://asset/保存.png" id="5_8u7u6"]
+[ext_resource type="Texture2D" uid="uid://dfvmxavuavbta" path="res://asset/粗细.png" id="5_cirq1"]
+[ext_resource type="Texture2D" uid="uid://h1ob7h06y2mj" path="res://asset/Icon_画笔.png" id="6_7d2hf"]
+[ext_resource type="Texture2D" uid="uid://c4bavnyf2ufqj" path="res://asset/icon-whiteboard.png" id="7_5nn1g"]
+[ext_resource type="Texture2D" uid="uid://c13tgjk1ojycw" path="res://asset/画笔.png" id="10_8u7u6"]
+[ext_resource type="Texture2D" uid="uid://dxu7gh7jy66kc" path="res://asset/Gemini_Generated_Image_ty0g9nty0g9nty0g-removebg-preview.png" id="10_c7fbu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cirq1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7d2hf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c7fbu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8u7u6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4hye"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv2ml"]
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_pw1yp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_right = 1154.0
+offset_bottom = 651.0
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(554.00006, 328)
+scale = Vector2(1.8055624, 2.530953)
+texture = ExtResource("10_c7fbu")
+metadata/_edit_lock_ = true
+
+[node name="canvas" type="Control" parent="background"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -139.0149
+offset_top = -93.640625
+offset_right = -139.0149
+offset_bottom = -93.640625
+scale = Vector2(0.5538441, 0.3951081)
+script = ExtResource("3_v4hye")
+metadata/_edit_lock_ = true
+
+[node name="canvas" type="Panel" parent="background/canvas"]
+layout_mode = 0
+offset_right = 518.0
+offset_bottom = 515.0
+script = ExtResource("4_yv2ml")
+
+[node name="功能区" type="Node2D" parent="."]
+script = ExtResource("4_7d2hf")
+
+[node name="保存" type="Sprite2D" parent="功能区"]
+position = Vector2(99.00001, 110)
+scale = Vector2(0.360741, 0.360741)
+texture = ExtResource("5_8u7u6")
+
+[node name="Button" type="Button" parent="功能区/保存"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -66.529755
+offset_top = -80.39008
+offset_right = 74.01077
+offset_bottom = 78.51403
+
+[node name="FileDialog" type="FileDialog" parent="功能区/保存"]
+oversampling_override = 1.0
+title = "Open a Directory"
+file_mode = 2
+access = 2
+
+[node name="删除" type="Sprite2D" parent="功能区"]
+position = Vector2(1032.8347, 113.5)
+scale = Vector2(0.37, 0.365)
+texture = ExtResource("3_0tn4t")
+
+[node name="Button" type="Button" parent="功能区/删除"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -61.71545
+offset_top = -69.863014
+offset_right = 78.82507
+offset_bottom = 89.0411
+
+[node name="撤回" type="Sprite2D" parent="功能区"]
+position = Vector2(1035.4174, 225)
+scale = Vector2(0.28899035, 0.28899035)
+texture = ExtResource("4_5nn1g")
+
+[node name="Button" type="Button" parent="功能区/撤回"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -77.57139
+offset_top = -86.50806
+offset_right = 62.96914
+offset_bottom = 72.39606
+scale = Vector2(1.1870292, 1.1870292)
+
+[node name="粗细" type="Sprite2D" parent="功能区"]
+position = Vector2(1035.8347, 329.5)
+scale = Vector2(0.30107683, 0.30107683)
+texture = ExtResource("5_cirq1")
+
+[node name="画笔颜色" type="Sprite2D" parent="功能区"]
+position = Vector2(1036.4174, 439)
+scale = Vector2(0.5141738, 0.5141738)
+texture = ExtResource("6_7d2hf")
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="功能区/画笔颜色"]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+offset_left = -60.29091
+offset_top = -56.40118
+offset_right = 50.566513
+offset_bottom = 56.401127
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_cirq1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7d2hf")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_c7fbu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8u7u6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_v4hye")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yv2ml")
+
+[node name="画板颜色" type="Sprite2D" parent="功能区"]
+position = Vector2(1035.4174, 544)
+scale = Vector2(0.37138003, 0.37138003)
+texture = ExtResource("7_5nn1g")
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="功能区/画板颜色"]
+modulate = Color(1, 1, 1, 0)
+z_index = -1
+offset_left = -67.31649
+offset_top = -61.931206
+offset_right = 43.54093
+offset_bottom = 50.8711
+scale = Vector2(1.2327567, 1.2327567)
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_cirq1")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7d2hf")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_c7fbu")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8u7u6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_v4hye")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yv2ml")
+
+[node name="画笔" type="Node2D" parent="."]
+
+[node name="画笔" type="Sprite2D" parent="画笔"]
+modulate = Color(0, 0, 0, 1)
+z_index = 4096
+position = Vector2(752.2724, 443.2665)
+scale = Vector2(0.15861605, 0.16361625)
+texture = ExtResource("10_8u7u6")
+offset = Vector2(62.20044, -54.425293)

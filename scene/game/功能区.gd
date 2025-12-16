@@ -1,0 +1,100 @@
+extends Node2D
+
+@onready var pen: Sprite2D = $"../画笔/画笔"
+@onready var game: Node2D = $".."
+
+@onready var color_picker_button1: ColorPickerButton = $画笔颜色/ColorPickerButton
+@onready var color_picker_button2: ColorPickerButton = $画板颜色/ColorPickerButton
+@onready var button3: Button = $删除/Button
+@onready var button4: Button = $撤回/Button
+@onready var button5: Button = $保存/Button
+
+@onready var file_dialog: FileDialog = $保存/FileDialog
+
+
+@onready var canvas: Control = $"../background/canvas"
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("clear"):
+		canvas.clear_canvas()
+	if Input.is_action_just_pressed("redo"):
+		canvas.redo()
+
+var viewport:Viewport
+
+var temp
+var view_scale#缩放比
+func _ready() -> void:
+	
+	var DESIGN_RESOLUTION: Vector2 = get_viewport().get_visible_rect().size
+	var actual_viewport_size: Vector2 = Vector2(DisplayServer.window_get_size())
+	temp=(actual_viewport_size / DESIGN_RESOLUTION).x
+	view_scale=Vector2(temp,temp)
+	viewport=get_viewport()
+	
+	
+	button5.pressed.connect(func():
+		var now_time=str(Time.get_unix_time_from_system())
+		game.switch_mouse(false)
+		var tex:ViewportTexture=viewport.get_texture()
+		var img:Image=tex.get_image()
+		var crop_rect:Rect2
+		crop_rect.position=canvas.get_screen_position()*view_scale
+		crop_rect.size=Vector2(500,500)*view_scale
+		img=img.get_region(crop_rect)
+		file_dialog.popup_centered()
+		var on_selected=func(path):
+			game.switch_mouse(true)
+			img.save_png(path+"/"+now_time+".png")
+		file_dialog.dir_selected.connect(on_selected,CONNECT_ONE_SHOT)
+		file_dialog.canceled.connect(func():
+			game.switch_mouse(true)
+			file_dialog.dir_selected.disconnect(on_selected))
+			)
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	color_picker_button1.color_changed.connect(func(color:Color):
+		canvas.change_color(color)
+		pen.modulate=color
+		)
+	color_picker_button2.color_changed.connect(func(color:Color):
+		canvas.change_canvas_color(color)
+		)	#改颜色
+		
+		
+	#改鼠标逻辑
+	color_picker_button1.pressed.connect(func():
+		game.switch_mouse(false)
+		color_picker_button1.popup_closed.connect(func():game.switch_mouse(true),CONNECT_ONE_SHOT)
+		)
+	color_picker_button2.pressed.connect(func():
+		game.switch_mouse(false)
+		color_picker_button2.popup_closed.connect(func():game.switch_mouse(true),CONNECT_ONE_SHOT)
+		)	
+		
+	button3.pressed.connect(func():
+		canvas.clear_canvas()
+		)	
+	button4.pressed.connect(func():
+		canvas.redo()
+		)
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		

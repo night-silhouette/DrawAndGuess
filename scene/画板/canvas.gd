@@ -1,13 +1,9 @@
 extends Panel
 
-class stroke extends RefCounted:
-	var pen_width:float
-	var pen_color:Color
-	var point_list:PackedVector2Array
-	func _init(_pen_width,_pen_color) -> void:
-		self.pen_width=_pen_width
-		self.pen_color=_pen_color
-		self.point_list=[]
+@onready var parent: Control = $".."
+
+
+var stroke_others_player:Array[stroke]=[]
 
 var stroke_on_canvas:Array[stroke]=[]
 var pen_width:float
@@ -22,7 +18,7 @@ func _gui_input(event: InputEvent) -> void:
 		_current_stroke.point_list.push_back(event.position)
 		queue_redraw()
 	if event is InputEventMouseMotion and event.button_mask==1:
-		if _current_stroke:
+		if _current_stroke and parent.canvas_rect.x>event.position.x and parent.canvas_rect.y>event.position.y and event.position.y>0 and event.position.x>0:
 			_current_stroke.point_list.push_back(event.position)
 		queue_redraw()
 		
@@ -33,8 +29,9 @@ func _gui_input(event: InputEvent) -> void:
 		
 func _draw() -> void:
 	for item in stroke_on_canvas:
-		draw_polyline(item.point_list,item.pen_color,item.pen_width)
-	
+		draw_polyline(item.point_list,item.pen_color,item.pen_width,true)
+	for item in stroke_others_player:
+		draw_polyline(item.point_list,item.pen_color,item.pen_width,true)
 	
 	
 	
