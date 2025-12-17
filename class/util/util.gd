@@ -3,6 +3,18 @@ extends Node
 
 
 
+func pop_remind(title:String,text:String):
+	var temp:AcceptDialog=AcceptDialog.new()
+	get_tree().current_scene.add_child(temp)
+	temp.title = title
+	temp.dialog_text = text
+	temp.popup_centered()
+	temp.canceled.connect(func():temp.queue_free())
+	temp.confirmed.connect(func():temp.queue_free())
+
+
+
+
 func u_sequence(total:int):#2,1,0,1,2
 	var middle=int(total/2)
 	var res:Array=[]
@@ -76,6 +88,8 @@ func _await_time_until(obj_to_check, max_time: float) -> bool:
 		return false # 超时
 	
 	
+
+
 
 func cleanup_array(list):
 	for i in range(list.size() - 1, -1, -1):

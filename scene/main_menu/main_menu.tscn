@@ -1,0 +1,159 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdg4cpka034q3"]
+
+[ext_resource type="Script" uid="uid://b7s3al8ci2nd8" path="res://scene/main_menu/main_menu.gd" id="1_o25w2"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_o25w2")
+
+[node name="加入输入" type="Node2D" parent="."]
+position = Vector2(-474, -372)
+scale = Vector2(2.2874236, 2.2874236)
+
+[node name="port_input" type="SpinBox" parent="加入输入"]
+offset_left = 544.0
+offset_top = 307.0
+offset_right = 634.0
+offset_bottom = 332.0
+max_value = 65535.0
+
+[node name="ip_input" type="LineEdit" parent="加入输入"]
+offset_left = 303.00003
+offset_top = 305.0
+offset_right = 375.00003
+offset_bottom = 330.0
+scale = Vector2(1.1870862, 1)
+
+[node name="Label" type="Label" parent="加入输入"]
+offset_left = 333.0
+offset_top = 282.0
+offset_right = 373.0
+offset_bottom = 319.0
+text = "ip
+"
+
+[node name="Label2" type="Label" parent="加入输入"]
+offset_left = 565.0
+offset_top = 281.0
+offset_right = 605.0
+offset_bottom = 358.0
+text = "port
+
+
+"
+
+[node name="back" type="Button" parent="加入输入"]
+offset_left = 236.51062
+offset_top = 398.70184
+offset_right = 278.51062
+offset_bottom = 423.70184
+scale = Vector2(1.0494852, 1.0494852)
+text = "back"
+
+[node name="确认" type="Button" parent="加入输入"]
+offset_left = 444.60507
+offset_top = 353.23584
+offset_right = 484.60507
+offset_bottom = 378.23584
+scale = Vector2(1.1637328, 1.1637328)
+text = "确认"
+
+[node name="取消连接" type="Button" parent="加入输入"]
+offset_left = 608.98206
+offset_top = 353.23584
+offset_right = 680.98206
+offset_bottom = 378.23584
+disabled = true
+text = "取消连接"
+
+[node name="创建输入" type="Node2D" parent="."]
+visible = false
+position = Vector2(-474, -372)
+scale = Vector2(2.2874236, 2.2874236)
+
+[node name="port_input" type="SpinBox" parent="创建输入"]
+offset_left = 411.81708
+offset_top = 291.36404
+offset_right = 501.81708
+offset_bottom = 316.36404
+max_value = 65535.0
+
+[node name="Label2" type="Label" parent="创建输入"]
+offset_left = 432.81708
+offset_top = 265.36404
+offset_right = 472.81708
+offset_bottom = 342.36404
+text = "port
+
+
+"
+
+[node name="back" type="Button" parent="创建输入"]
+offset_left = 236.51064
+offset_top = 399.57617
+offset_right = 278.51065
+offset_bottom = 424.57617
+scale = Vector2(1.0494852, 1.0494852)
+text = "back"
+
+[node name="确认" type="Button" parent="创建输入"]
+offset_left = 426.2438
+offset_top = 352.36154
+offset_right = 466.2438
+offset_bottom = 377.36154
+scale = Vector2(1.1637328, 1.1637328)
+text = "确认"
+
+[node name="close" type="Button" parent="创建输入"]
+offset_left = 613.3538
+offset_top = 287.22272
+offset_right = 685.3538
+offset_bottom = 312.22272
+scale = Vector2(1.0444037, 1.0187964)
+disabled = true
+text = "关闭房间
+"
+
+[node name="start_game" type="Button" parent="创建输入"]
+visible = false
+offset_left = 404.3851
+offset_top = 277.60492
+offset_right = 495.3851
+offset_bottom = 302.60492
+text = "Start Game
+"
+
+[node name="选择" type="Node2D" parent="."]
+visible = false
+position = Vector2(-331, -133)
+scale = Vector2(2.7461455, 2.7461455)
+
+[node name="加入房间" type="Button" parent="选择"]
+offset_left = 370.33725
+offset_top = 155.85481
+offset_right = 456.33725
+offset_bottom = 182.95955
+text = "加入房间
+"
+
+[node name="创建房间" type="Button" parent="选择"]
+offset_left = 200.40176
+offset_top = 156.03238
+offset_right = 286.40176
+offset_bottom = 183.13712
+text = "创建房间"
+
+[node name="exit" type="Button" parent="选择"]
+offset_left = 130.7287
+offset_top = 243.25002
+offset_right = 202.7287
+offset_bottom = 285.25006
+scale = Vector2(0.7739856, 0.7739856)
+text = "退出游戏"
+
+[node name="input_name" type="LineEdit" parent="选择"]
+offset_left = 272.0176
+offset_top = 204.65048
+offset_right = 395.43033
+offset_bottom = 229.65048
+scale = Vector2(0.8969953, 0.8969953)
+placeholder_text = "请输入你的昵称"

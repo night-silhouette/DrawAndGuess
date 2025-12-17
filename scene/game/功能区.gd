@@ -8,6 +8,8 @@ extends Node2D
 @onready var button3: Button = $删除/Button
 @onready var button4: Button = $撤回/Button
 @onready var button5: Button = $保存/Button
+@onready var button6: Button = $粗细/Button
+@onready var spin_box: SpinBox = $粗细/SpinBox
 
 @onready var file_dialog: FileDialog = $保存/FileDialog
 
@@ -88,8 +90,14 @@ func _ready() -> void:
 		canvas.redo()
 		)
 		
-	
+	button6.pressed.connect(func():
+		if spin_box.visible:
+			spin_box.visible=false
+		else:
+			spin_box.visible=true
 		
+		)
+	spin_box.value_changed.connect(func(value):canvas.change_width(value))
 		
 		
 		

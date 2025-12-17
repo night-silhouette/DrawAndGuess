@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="你画我猜"
-run/main_scene="uid://jvkne22ala20"
+run/main_scene="uid://cdg4cpka034q3"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
 [autoload]
 
 Util="*res://class/util/util.gd"
+Global="*res://scene/全局变量/global.gd"
+WebRequest="*res://scene/全局变量/web_request.gd"
 
 [display]
 

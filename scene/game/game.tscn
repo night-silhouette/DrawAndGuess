@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://jvkne22ala20"]
+[gd_scene load_steps=21 format=3 uid="uid://jvkne22ala20"]
 
 [ext_resource type="Script" uid="uid://m4qosr7oi7t1" path="res://scene/game/game.gd" id="1_pw1yp"]
 [ext_resource type="Texture2D" uid="uid://dcxje3gqujkbl" path="res://asset/删除.png" id="3_0tn4t"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://c13tgjk1ojycw" path="res://asset/画笔.png" id="10_8u7u6"]
 [ext_resource type="Texture2D" uid="uid://dxu7gh7jy66kc" path="res://asset/Gemini_Generated_Image_ty0g9nty0g9nty0g-removebg-preview.png" id="10_c7fbu"]
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_v4hye"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cirq1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7d2hf"]
@@ -24,6 +26,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v4hye"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv2ml"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v4hye"]
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_pw1yp")
@@ -110,6 +114,23 @@ position = Vector2(1035.8347, 329.5)
 scale = Vector2(0.30107683, 0.30107683)
 texture = ExtResource("5_cirq1")
 
+[node name="SpinBox" type="SpinBox" parent="功能区/粗细"]
+visible = false
+offset_left = -690.30457
+offset_top = -94.660255
+offset_right = -493.7921
+offset_bottom = -28.14267
+scale = Vector2(3.011437, 3.011437)
+theme_override_styles/up_down_buttons_separator = SubResource("StyleBoxLine_v4hye")
+
+[node name="Button" type="Button" parent="功能区/粗细"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -85.807816
+offset_top = -88.01743
+offset_right = 54.73271
+offset_bottom = 70.88668
+scale = Vector2(1.1870292, 1.1870292)
+
 [node name="画笔颜色" type="Sprite2D" parent="功能区"]
 position = Vector2(1036.4174, 439)
 scale = Vector2(0.5141738, 0.5141738)
@@ -158,3 +179,9 @@ position = Vector2(752.2724, 443.2665)
 scale = Vector2(0.15861605, 0.16361625)
 texture = ExtResource("10_8u7u6")
 offset = Vector2(62.20044, -54.425293)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_v4hye")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../画笔")
