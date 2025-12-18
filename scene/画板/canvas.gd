@@ -3,9 +3,9 @@ extends Panel
 @onready var parent: Control = $".."
 
 
-var stroke_others_player:Array[stroke]=[]
+#var stroke_others_player:Array[stroke]=[]
 
-var stroke_on_canvas:Array[stroke]=[]
+@onready var stroke_on_canvas:ObservableArray=ObservableArray.new()
 var pen_width:float
 var pen_color:Color
 
@@ -28,10 +28,10 @@ func _gui_input(event: InputEvent) -> void:
 		queue_redraw()
 		
 func _draw() -> void:
-	for item in stroke_on_canvas:
-		draw_polyline(item.point_list,item.pen_color,item.pen_width,true)
-	for item in stroke_others_player:
-		draw_polyline(item.point_list,item.pen_color,item.pen_width,true)
+	stroke_on_canvas.foreach(func(item):
+		draw_polyline(item.point_list,item.pen_color,item.pen_width,true))
+		
+
 	
 	
 	

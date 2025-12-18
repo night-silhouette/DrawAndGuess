@@ -1,4 +1,4 @@
 extends Node
 
 
-var user_name:String="player"
+var user_name:String=""

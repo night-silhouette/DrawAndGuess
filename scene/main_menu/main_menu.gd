@@ -38,7 +38,7 @@ func _ready() -> void:
 	close.pressed.connect(close_servers)
 	join_confirm.pressed.connect(join_servers)
 	exit.pressed.connect(func():get_tree().quit())
-	input_name.text_submitted.connect(func(new_text):user_name=new_text)
+	input_name.text_changed.connect(func(new_text):user_name=new_text)
 	cancel.pressed.connect(cancel_client_connect)
 	#ui信号绑定-------------------------------------end
 	

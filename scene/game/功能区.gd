@@ -1,6 +1,5 @@
 extends Node2D
-
-@onready var pen: Sprite2D = $"../画笔/画笔"
+var pen
 @onready var game: Node2D = $".."
 
 @onready var color_picker_button1: ColorPickerButton = $画笔颜色/ColorPickerButton
@@ -66,7 +65,10 @@ func _ready() -> void:
 	
 	color_picker_button1.color_changed.connect(func(color:Color):
 		canvas.change_color(color)
-		pen.modulate=color
+		if multiplayer.is_server():
+			pen.modulate=color
+		else :
+			change_pen_modulate.rpc_id(1,multiplayer.get_unique_id(),color)
 		)
 	color_picker_button2.color_changed.connect(func(color:Color):
 		canvas.change_canvas_color(color)
@@ -99,10 +101,12 @@ func _ready() -> void:
 		)
 	spin_box.value_changed.connect(func(value):canvas.change_width(value))
 		
-		
-		
-		
-		
+@onready var pen_container: Node2D = $"../pen_container"		
+@rpc("any_peer","reliable")
+func change_pen_modulate(id,color):	
+		for item in pen_container.get_children():
+			if item.id==id:
+				item.modulate=color
 		
 		
 		
