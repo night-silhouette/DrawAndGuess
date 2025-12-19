@@ -1,18 +1,16 @@
-[gd_scene load_steps=20 format=3 uid="uid://jvkne22ala20"]
+[gd_scene load_steps=19 format=3 uid="uid://jvkne22ala20"]
 
 [ext_resource type="Script" uid="uid://m4qosr7oi7t1" path="res://scene/game/game.gd" id="1_pw1yp"]
 [ext_resource type="Texture2D" uid="uid://dcxje3gqujkbl" path="res://asset/删除.png" id="3_0tn4t"]
-[ext_resource type="Script" uid="uid://cugp3smrg3x8h" path="res://scene/画板/画板.gd" id="3_v4hye"]
+[ext_resource type="PackedScene" uid="uid://mkdcju13rj7v" path="res://scene/画板/canvas.tscn" id="3_8u7u6"]
 [ext_resource type="Texture2D" uid="uid://bmcsa76i38mr6" path="res://asset/撤回.png" id="4_5nn1g"]
 [ext_resource type="Script" uid="uid://bfl04i3uq06jm" path="res://scene/game/功能区.gd" id="4_7d2hf"]
-[ext_resource type="Script" uid="uid://doi65fjp57h8r" path="res://scene/画板/canvas.gd" id="4_yv2ml"]
 [ext_resource type="Texture2D" uid="uid://2rs6jwx0v7hg" path="res://asset/保存.png" id="5_8u7u6"]
 [ext_resource type="Texture2D" uid="uid://dfvmxavuavbta" path="res://asset/粗细.png" id="5_cirq1"]
 [ext_resource type="Texture2D" uid="uid://h1ob7h06y2mj" path="res://asset/Icon_画笔.png" id="6_7d2hf"]
+[ext_resource type="Texture2D" uid="uid://bnwxwbtjt1cfq" path="res://asset/leave.png" id="6_v4hye"]
 [ext_resource type="Texture2D" uid="uid://c4bavnyf2ufqj" path="res://asset/icon-whiteboard.png" id="7_5nn1g"]
 [ext_resource type="Texture2D" uid="uid://dxu7gh7jy66kc" path="res://asset/Gemini_Generated_Image_ty0g9nty0g9nty0g-removebg-preview.png" id="10_c7fbu"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8u7u6"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_v4hye"]
 
@@ -45,33 +43,37 @@ scale = Vector2(1.8055624, 2.530953)
 texture = ExtResource("10_c7fbu")
 metadata/_edit_lock_ = true
 
-[node name="canvas" type="Control" parent="background"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -139.0149
-offset_top = -93.640625
-offset_right = -139.0149
-offset_bottom = -93.640625
-scale = Vector2(0.5538441, 0.3951081)
-script = ExtResource("3_v4hye")
-metadata/_edit_lock_ = true
-
-[node name="canvas" type="Panel" parent="background/canvas"]
-layout_mode = 0
-offset_right = 518.0
-offset_bottom = 515.0
-script = ExtResource("4_yv2ml")
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="background/canvas"]
-replication_config = SubResource("SceneReplicationConfig_8u7u6")
+[node name="canvas" parent="background" instance=ExtResource("3_8u7u6")]
 
 [node name="功能区" type="Node2D" parent="."]
 script = ExtResource("4_7d2hf")
+
+[node name="Leave" type="Sprite2D" parent="功能区"]
+position = Vector2(93.00001, 545.00006)
+scale = Vector2(0.3163896, 0.3163896)
+texture = ExtResource("6_v4hye")
+
+[node name="Button" type="Button" parent="功能区/Leave"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -41.088608
+offset_top = -72.695435
+offset_right = 99.45192
+offset_bottom = 86.20874
 
 [node name="保存" type="Sprite2D" parent="功能区"]
 position = Vector2(99.00001, 110)
 scale = Vector2(0.360741, 0.360741)
 texture = ExtResource("5_8u7u6")
+
+[node name="Label3" type="Label" parent="功能区/保存"]
+offset_left = 99.79456
+offset_top = -13.860359
+offset_right = 182.79443
+offset_bottom = 55.13964
+scale = Vector2(0.8048977, 0.8048977)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Ctrl+s"
 
 [node name="Button" type="Button" parent="功能区/保存"]
 modulate = Color(1, 1, 1, 0)
@@ -90,6 +92,17 @@ access = 2
 position = Vector2(1032.8347, 113.5)
 scale = Vector2(0.37, 0.365)
 texture = ExtResource("3_0tn4t")
+
+[node name="Label2" type="Label" parent="功能区/删除"]
+offset_left = 130.17628
+offset_top = 1.3698702
+offset_right = 213.1763
+offset_bottom = 70.36987
+scale = Vector2(0.8048977, 0.8048977)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "E
+ "
 
 [node name="Button" type="Button" parent="功能区/删除"]
 modulate = Color(1, 1, 1, 0)
@@ -110,6 +123,16 @@ offset_top = -86.50806
 offset_right = 62.96914
 offset_bottom = 72.39606
 scale = Vector2(1.1870292, 1.1870292)
+
+[node name="Label" type="Label" parent="功能区/撤回"]
+offset_left = 143.88939
+offset_top = -13.841293
+offset_right = 226.88939
+offset_bottom = 55.158707
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "ctrl+z
+ "
 
 [node name="粗细" type="Sprite2D" parent="功能区"]
 position = Vector2(1035.8347, 329.5)

@@ -2,6 +2,7 @@ extends Node
 var main_menu
 var game
 
+var is_multiplayer=true
 var in_game:bool=false
 
 func _ready() -> void:

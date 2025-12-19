@@ -3,7 +3,12 @@ extends Node2D
 @onready var 加入房间: Button = $选择/加入房间
 @onready var back1: Button = $加入输入/back
 @onready var back2: Button = $创建输入/back
-@onready var exit: Button = $选择/exit
+@onready var back3: Button = $选择/back
+@onready var multiplay: Button = $单或双/multiplay
+@onready var singleplay: Button = $单或双/singleplay
+@onready var exit: Button = $exit
+
+
 @onready var input_name: LineEdit = $选择/input_name
 
 
@@ -11,6 +16,8 @@ var page_list:Array[Node2D]=[]
 @onready var 创建输入: Node2D = $创建输入
 @onready var 加入输入: Node2D = $加入输入
 @onready var 选择: Node2D = $选择
+@onready var 单或双: Node2D = $单或双
+
 var page:int:
 	set(value):
 		page=value
@@ -26,13 +33,19 @@ func _ready() -> void:
 	WebRequest.main_menu=self
 	
 	#页面管理
-	page_list=[选择,加入输入,创建输入]
-	page=0
+	page_list=[选择,加入输入,创建输入,单或双]
+	page=3
 	#ui信号绑定-------------------------------------start
+	singleplay.pressed.connect(func():
+		WebRequest.is_multiplayer=false
+		get_tree().change_scene_to_file("res://scene/game/game.tscn")
+		)
+	multiplay.pressed.connect(func():page=0)
 	创建房间.pressed.connect(func():page=2)
 	加入房间.pressed.connect(func():page=1)
 	back1.pressed.connect(func():page=0)
 	back2.pressed.connect(func():page=0)
+	back3.pressed.connect(func():page=3)
 	create_confirm.pressed.connect(create_servers)
 	create_start_game.pressed.connect(start_game)
 	close.pressed.connect(close_servers)

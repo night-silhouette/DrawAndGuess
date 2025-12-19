@@ -8,6 +8,7 @@ var pen
 @onready var button4: Button = $撤回/Button
 @onready var button5: Button = $保存/Button
 @onready var button6: Button = $粗细/Button
+@onready var button7: Button = $Leave/Button
 @onready var spin_box: SpinBox = $粗细/SpinBox
 
 @onready var file_dialog: FileDialog = $保存/FileDialog
@@ -21,7 +22,8 @@ func _process(delta: float) -> void:
 		canvas.clear_canvas()
 	if Input.is_action_just_pressed("redo"):
 		canvas.redo()
-
+	if Input.is_action_just_pressed("save"):
+		on_save()
 var viewport:Viewport
 
 var temp
@@ -35,34 +37,7 @@ func _ready() -> void:
 	viewport=get_viewport()
 	
 	
-	button5.pressed.connect(func():
-		var now_time=str(Time.get_unix_time_from_system())
-		game.switch_mouse(false)
-		var tex:ViewportTexture=viewport.get_texture()
-		var img:Image=tex.get_image()
-		var crop_rect:Rect2
-		crop_rect.position=canvas.get_screen_position()*view_scale
-		crop_rect.size=Vector2(500,500)*view_scale
-		img=img.get_region(crop_rect)
-		file_dialog.popup_centered()
-		var on_selected=func(path):
-			game.switch_mouse(true)
-			img.save_png(path+"/"+now_time+".png")
-		file_dialog.dir_selected.connect(on_selected,CONNECT_ONE_SHOT)
-		file_dialog.canceled.connect(func():
-			game.switch_mouse(true)
-			file_dialog.dir_selected.disconnect(on_selected))
-			)
-		
-		
-		
-	
-	
-	
-	
-	
-	
-	
+	button5.pressed.connect(on_save)
 	color_picker_button1.color_changed.connect(func(color:Color):
 		canvas.change_color(color)
 		if multiplayer.is_server():
@@ -71,7 +46,7 @@ func _ready() -> void:
 			change_pen_modulate.rpc_id(1,multiplayer.get_unique_id(),color)
 		)
 	color_picker_button2.color_changed.connect(func(color:Color):
-		canvas.change_canvas_color(color)
+		canvas.change_canvas_color.rpc(color)
 		)	#改颜色
 		
 		
@@ -99,14 +74,55 @@ func _ready() -> void:
 			spin_box.visible=true
 		
 		)
-	spin_box.value_changed.connect(func(value):canvas.change_width(value))
+	button7.pressed.connect(func():
+		if !WebRequest.is_multiplayer:
+			game.switch_mouse(false)
+			WebRequest.is_multiplayer=true
+			get_tree().change_scene_to_file("res://scene/main_menu/main_menu.tscn")
+		else:
+			game.switch_mouse(false)
+			if multiplayer.is_server():
+				client_leave.rpc()
+				Util.set_time(3,close_servers)
+			else:
+				close_servers()
+			get_tree().change_scene_to_file("res://scene/main_menu/main_menu.tscn")
+			
+		)
 		
+	spin_box.value_changed.connect(func(value):canvas.change_width(value))
+
 @onready var pen_container: Node2D = $"../pen_container"		
 @rpc("any_peer","reliable")
 func change_pen_modulate(id,color):	
 		for item in pen_container.get_children():
 			if item.id==id:
 				item.modulate=color
-		
-		
-		
+func on_save():
+	var now_time=str(Time.get_unix_time_from_system())
+	game.switch_mouse(false)
+	var tex:ViewportTexture=viewport.get_texture()
+	var img:Image=tex.get_image()
+	var crop_rect:Rect2
+	crop_rect.position=canvas.get_screen_position()*view_scale
+	crop_rect.size=Vector2(500,500)*view_scale
+	img=img.get_region(crop_rect)
+	file_dialog.popup_centered()
+	var on_selected=func(path):
+		game.switch_mouse(true)
+		img.save_png(path+"/"+now_time+".png")
+	file_dialog.dir_selected.connect(on_selected,CONNECT_ONE_SHOT)
+	file_dialog.canceled.connect(func():
+		game.switch_mouse(true)
+		file_dialog.dir_selected.disconnect(on_selected))
+
+func close_servers():
+	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer=null
+
+@rpc("any_peer","reliable")
+func client_leave():
+	game.switch_mouse(false)
+	Util.pop_remind("提示","房间被关闭,3秒后返回主菜单")
+	Util.set_time(3,func():get_tree().change_scene_to_file("res://scene/main_menu/main_menu.tscn"))	
+	close_servers()

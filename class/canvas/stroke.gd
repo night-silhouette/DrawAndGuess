@@ -1,10 +1,10 @@
 extends RefCounted
 class_name stroke 
-var id:int
+var id:String
 var pen_width:float
 var pen_color:Color
 var point_list:PackedVector2Array
-func _init(_pen_width,_pen_color,id) -> void:
+func _init(_pen_width,_pen_color,id:String) -> void:
 	self.pen_width=_pen_width
 	self.pen_color=_pen_color
 	self.id=id

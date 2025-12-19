@@ -2,7 +2,7 @@ extends Node
 
 
 
-
+@rpc("any_peer","reliable")
 func pop_remind(title:String,text:String):
 	var temp:AcceptDialog=AcceptDialog.new()
 	get_tree().current_scene.add_child(temp)

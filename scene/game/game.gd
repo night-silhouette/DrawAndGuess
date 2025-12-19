@@ -30,6 +30,11 @@ func _ready() -> void:
 	my_id=multiplayer.get_unique_id()
 	WebRequest.game=self
 	
+	if !WebRequest.is_multiplayer:
+		var temp=PEN.instantiate()
+		pen_container.add_child(temp)
+		pen=temp
+	
 @rpc("any_peer","unreliable")
 func update_pen_position(id,position):
 	for item in pen_container.get_children():

@@ -22,6 +22,8 @@ func change_color(color:Color):#改变画笔颜色
 	canvas.pen_color=color
 func change_width(width:float):#改变画笔宽度
 	canvas.pen_width=width
+	
+@rpc("any_peer","call_local","reliable")
 func change_canvas_color(color:Color):
 	var current_style: StyleBox = canvas.get_theme_stylebox("panel")
 	current_style.set_bg_color(color)

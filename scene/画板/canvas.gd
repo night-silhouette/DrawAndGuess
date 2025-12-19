@@ -18,13 +18,30 @@ func update_stroke(id,point):
 		if item.id==id:
 			item.point_list.push_back(point)
 	queue_redraw()
-	
+
+
+@rpc("any_peer","reliable")
+func update_clear():
+	stroke_others_player.clear()	
+	queue_redraw()
+@rpc("any_peer","reliable")
+func delete_stroke_by_id(id:String):
+	for i in range(stroke_others_player.size()):
+		if stroke_others_player[i].id==id:
+			stroke_others_player.remove_at(i)
+	queue_redraw()		
+			
 
 func _ready() -> void:
 	stroke_on_canvas.changed.connect(func(op_type,index,value:stroke):
 		if op_type=="add":
 			add_stroke.rpc(value.to_dict())
-		)
+		if op_type=="clear":
+			update_clear.rpc()
+		if op_type=="remove":
+			delete_stroke_by_id.rpc(value.id)
+			)
+			
 	
 	
 
