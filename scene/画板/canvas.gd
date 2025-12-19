@@ -38,7 +38,7 @@ func _ready() -> void:
 			add_stroke.rpc(value.to_dict())
 		if op_type=="clear":
 			update_clear.rpc()
-		if op_type=="remove":
+		if op_type=="remove" and value:
 			delete_stroke_by_id.rpc(value.id)
 			)
 			
