@@ -74,7 +74,7 @@ func _ready() -> void:
 			spin_box.visible=true
 		
 		)
-	button7.pressed.connect(func():
+	button7.pressed.connect(func() :
 		if !WebRequest.is_multiplayer:
 			game.switch_mouse(false)
 			WebRequest.is_multiplayer=true
